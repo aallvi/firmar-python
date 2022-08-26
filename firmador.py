@@ -2,12 +2,18 @@
 import datetime
 from cryptography.hazmat import backends
 from cryptography.hazmat.primitives.serialization import pkcs12
-
+import fitz
 from endesive.pdf import cms
+import json
+import base64
 
 
+import logging
 def firmar(contraseña, certificado, pdf):
-    date = datetime.datetime.utcnow() - datetime.timedelta(hours=12)
+    
+    
+
+    date = datetime.datetime.utcnow() 
     date = date.strftime("D:%Y%m%d%H%M%S+00'00'")
     dct = {
         "aligned": 0,
@@ -18,8 +24,9 @@ def firmar(contraseña, certificado, pdf):
         "sigfield": "Signature1",
         "auto_sigfield": True,
         "sigandcertify": True,
-        "signaturebox": (470, 840, 570, 640),
-        "signature": "Aquí va la firma",
+        # "signaturebox": (470, 840, 570, 640),
+         "signaturebox": (0, 0, 590, 155),
+        "signature": "Aquí va la firma 2",
         # "signature_img": "signature_test.png",
         "contact": "hola@ejemplo.com",
         "location": "Ubicación",
@@ -33,8 +40,22 @@ def firmar(contraseña, certificado, pdf):
     )
 
     #datau = open(fname, "rb").read()
+
+    
     datau = pdf.read()
+
+    print(type(certificado.read()))
+
     datas = cms.sign(datau, dct, p12[0], p12[1], p12[2], "sha256")
+
+    # print(type(datas))
+
+    base64_encoded_data = base64.b64encode(datas)
+    base64_message = base64_encoded_data.decode('utf-8')
+    
+ 
+ 
+
     return datau, datas
     """
     fname = "test.pdf"
