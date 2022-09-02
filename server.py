@@ -16,10 +16,7 @@ def index():
 
 @app.route('/procesar',  methods=['POST'])
 def procesar():
-    pdf = request.files.get("pdf")
-    # print(pdf)
-    
-    firma = request.files.get("firma")
+
 
     
     content_type = request.headers.get('Content-Type')
@@ -30,11 +27,17 @@ def procesar():
     bufferCert = json['bufferCert']
     # print(json)
     linkpdf = json['linkpdf']
+    firmas = json['firmas']
+    nombre = json['nombre']
+    rut = json['rut']
+    fecha = json['fecha']
+    id = json['id']
+    codper = json['codper']
 
     contraseña = ''
     archivo_pdf_para_enviar_al_cliente = io.BytesIO()
     try:
-        datau, datas = firmar(contraseña, firma, pdf,bufferCert,linkpdf)
+        datau, datas = firmar(contraseña,bufferCert,linkpdf, firmas, nombre, rut, fecha,id,codper)
         archivo_pdf_para_enviar_al_cliente.write(datau)
         archivo_pdf_para_enviar_al_cliente.write(datas)
         archivo_pdf_para_enviar_al_cliente.seek(0)
