@@ -179,7 +179,7 @@ def firmar(contraseña, bufferCert, linkpdf, firmas, nombre, rut, fecha,id,codpe
             ['text_box', f'Firma Digital - {nombre} {rut} {fecha}',
                 # font  *[bounding box], fs, wrap, align, baseline
          # distancia de la izquierda, distancia del suelo , ancho
-                'default', 1, 28, 100, 2, 7, True, 'center', 'top'],
+                'default', 1, 34, 100, 2, 7, True, 'center', 'top'],
             ],
         #   key: name used in image directives
         # value: PIL Image object or path to image file
