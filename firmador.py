@@ -108,13 +108,14 @@ def firmar(contraseña, bufferCert, linkpdf, firmas, nombre, rut, fecha,id,codpe
 
     # qr
 
-    img = qrcode.make(f'http://localhost:3001/#/verpdf/{id}/{codper}')
+    img = qrcode.make(f'https://www.websal.com/personas/v2/#/verpdf/{id}/{codper}')
 
     qrName = f'qr{id}.png'
     
     with open(qrName, 'wb') as qr:
      img.save(qr)
     # print(type(img))
+    logowebsal = 'websa.png'
 
    
     # print(content)
@@ -135,9 +136,9 @@ def firmar(contraseña, bufferCert, linkpdf, firmas, nombre, rut, fecha,id,codpe
 
 
     if firmas == 0 :
-       signatureBox = (380, 10, 480, 100)
+       signatureBox = (330, 0, 430, 110)
     else:
-       signatureBox = (500, 10, 600, 100)
+       signatureBox = (450, 0, 550, 110)
 
     dct = {
         "aligned": 0,
@@ -168,22 +169,24 @@ def firmar(contraseña, bufferCert, linkpdf, firmas, nombre, rut, fecha,id,codpe
             ['border', 0.1],
 
             #          key  *[bounding box]  distort centred
-            ['image', 'sig0', 20, 100, 80, 20,  False, True],
+            ['image', 'sig0', 20, 113, 80, 20,  False, True],
+            ['image', 'sig1', 20, 12, 80, 5,  False, True],
+
 
             #         font     fs 
-            ['font', 'default', 7],
+            ['font', 'default', 6],
             #               R  G  B
             ['fill_colour', 0, 0, 0],
 
             #            text
-            ['text_box', f'Firma Digital - {nombre} {rut} {fecha}',
+            ['text_box', f'{nombre} {rut} {fecha}',
                 # font  *[bounding box], fs, wrap, align, baseline
          # distancia de la izquierda, distancia del suelo , ancho
-                'default', 1, 34, 100, 2, 7, True, 'center', 'top'],
+                'default', 1, 41, 100, 2, 7, True, 'center', 'top'],
             ],
         #   key: name used in image directives
         # value: PIL Image object or path to image file
-        "manual_images": {'sig0': qrName},
+        "manual_images": {'sig0': qrName, 'sig1': logowebsal},
         #   key: name used in font directives
         # value: path to TTF Font file
         "manual_fonts": {},
@@ -197,10 +200,10 @@ def firmar(contraseña, bufferCert, linkpdf, firmas, nombre, rut, fecha,id,codpe
         #     },
         # "signature": "Firma Digital - Alvaro Agustin Leiva Gil 196056920 el 15/ag/2022 a las 19:48",
         # "signature_img": 'qr.png',
-        "contact": "hola@ejemplo.com",
+        "contact": "contacto@websal.com",
         "location": "Ubicación",
         "signingdate": date,
-        "reason": "Razón",
+        "reason": "Firma Digital Websal",
         "password": contraseña,
     }
 

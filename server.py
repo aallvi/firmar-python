@@ -11,7 +11,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route('/')
 def index():
-    return render_template("formulario.html")
+    return 'funcionando'
 
 
 @app.route('/procesar',  methods=['POST'])
